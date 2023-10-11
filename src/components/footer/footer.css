@@ -1,0 +1,18 @@
+.footer{
+    background-color: var(--mainColor);
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color:#fff;
+    padding: 2rem 0.5rem;
+}
+
+.social-icon{
+   width: 3rem;
+   height: 3rem;
+   padding: 5px;
+   border: 1px solid;
+   border-radius: 1.5rem;
+   margin-right: 5px;
+}
