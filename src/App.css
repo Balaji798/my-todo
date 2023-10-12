@@ -1,4 +1,5 @@
-*{
+@import url("https://fonts.googleapis.com/css2?family=Gabarito&family=Hind+Siliguri:wght@300&family=Jost:wght@200;400&family=Raleway:wght@100;200;300;400;500&family=Roboto+Condensed&family=Wix+Madefor+Text:ital@1&display=swap");
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -6,8 +7,87 @@
 }
 
 :root {
-	--mainColor: #29335c;
-	--mainColorLight: #5767aa;
-	--secondaryColor: #ec5360;
-	--textColor: #eee;
+  --mainColor: #29335c;
+  --mainDarkBlue: #040440;
+  --mainColorLight: #5767aa;
+  --secondaryColor: #ec5360;
+  --textColor: #eee;
+}
+
+.display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.displaySpace {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal,
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  overflow-y: scroll;
+}
+
+.overlay {
+  background: rgba(49, 49, 49, 0.8);
+}
+.modal-content {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1.4;
+  background: #fff;
+  padding: 14px 28px;
+  border-radius: 3px;
+  max-width: 500px;
+  width: 100%;
+  min-width: 300px;
+}
+
+.cancel-button {
+  box-shadow: 0px 5px 7px #f099a4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 140px;
+  height: 50px;
+  border-radius: 15px;
+  font-size: 15px;
+  font-weight: bold;
+  background-color: #ff4961;
+  margin: 10px 0;
+  color: #fff;
+  cursor: pointer;
+  border: 0px solid #f099a4;
+  outline: none;
+}
+
+.cancel-button:hover {
+  opacity: 0.8;
+  transition: 0.3s ease-in-out;
+  border: 5px solid #f099a4;
+}
+
+.task-input{
+  width: 100%;
+  border:1.2px solid var(--mainDarkBlue);
+  font-size: 16px;
+  padding: 4px 5px;
+  border-radius: 5px;
+  margin-top: 0.5rem;
+}
+
+.task-input:focus{
+  box-shadow: var(--mainColorLight) 0px 2px 8px 0px;
 }

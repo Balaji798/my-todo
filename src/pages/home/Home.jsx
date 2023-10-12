@@ -4,9 +4,13 @@ import { BsCheck2Square } from "react-icons/bs";
 import { RiDeleteBin5Line } from "react-icons/ri";
 //import { BiUserCircle } from "react-icons/bi";
 import "./home.css";
+import Card from "../../components/card/Card";
+import AddTask from "../../components/addTask/AddTask";
 
 const Home = () => {
   const [todoData, setTodoData] = useState([]);
+  const [completed, setCompleted] = useState([]);
+  const [pendingTask, setPendingTask] = useState([]);
   const [task, setTask] = useState("");
   const [alert, setAlert] = useState(false);
   const [editIndex, setEditIndex] = useState("");
@@ -16,8 +20,6 @@ const Home = () => {
   const [pageGroup, setPageGroup] = useState(1);
   const tasksPerPage = 10;
 
-  const addTask = () => {};
-
   useEffect(() => {
     const getTodoList = async () => {
       try {
@@ -26,8 +28,22 @@ const Home = () => {
         )
           .then((response) => response.json())
           .then((json) => {
-            console.log(json[0]);
-            setTodoData(json);
+            console.log(json);
+            setTodoData(json.reverse());
+            setCompleted(
+              json.filter((item) => {
+                if (item.completed) {
+                  return item;
+                }
+              })
+            );
+            setPendingTask(
+              json.filter((item) => {
+                if (!item.completed) {
+                  return item;
+                }
+              })
+            );
           });
       } catch (err) {
         console.log(err);
@@ -36,9 +52,26 @@ const Home = () => {
     getTodoList();
   }, []);
 
+  const addTask = () => {
+    todoData.push({
+      title: newTask,
+      id: todoData.length + 1,
+      userId: 1,
+      completed: false,
+    });
+    setTodoData(todoData.reverse());
+    setPendingTask(
+      todoData.filter((item) => {
+        if (!item.completed) {
+          return item;
+        }
+      })
+    );
+  };
+
   const editTask = () => {};
 
-  const completeTask = (id) => {
+  const d = (id) => {
     if (!check.includes(id)) {
       setCheck([...check, id]);
     } else {
@@ -48,7 +81,17 @@ const Home = () => {
     }
   };
 
-  const deleteTask = () => {};
+  const deleteTask = (id) => {
+    setTodoData(
+      todoData
+        .filter((item) => {
+          if (item.id !== id) {
+            return item;
+          }
+        })
+        .reverse()
+    );
+  };
 
   const indexOfLastTask = currentPage * tasksPerPage;
   const indexOfFirstTask = indexOfLastTask - tasksPerPage;
@@ -69,7 +112,8 @@ const Home = () => {
       <button
         key={i}
         onClick={() => setCurrentPage(i)}
-        className={currentPage === i ? "button-add active" : "button-add"}
+        className={currentPage === i ? "button-add" : "button-add"}
+        style={{background:currentPage===1?"#040440":"#fff"}}
       >
         {i}
       </button>
@@ -100,37 +144,23 @@ const Home = () => {
   );
   return (
     <div className="container">
-      <from className="app-wrapper" style={{ marginBottom: "3rem" }}>
-        <input
-          type="text"
-          value={task}
-          placeholder="Enter a Todo..."
-          className="text-input"
-          required
-          onChange={(e) => {
-            if (alert) setAlert(false);
-            setTask(e.target.value);
-          }}
-        />
-
-        <button
-          className="button-add"
-          onClick={() => {
-            if (task === "") {
-              setAlert(true);
-            } else {
-              addTask();
-            }
-          }}
-          style={{ background: "#29335c", color: "#fff" }}
-        >
-          Add
-        </button>
-      </from>
+      <Card
+        totalTask={todoData.length}
+        completedTask={completed.length}
+        pendingTask={pendingTask.length}
+      />
       {alert && <p style={{ color: "red" }}>Task Can not be empty</p>}
       <div className="todoContainer">
         {currentTasks?.map((item, index) => (
-          <li className="list-item" key={index}>
+          <li
+            className="list-item"
+            key={index}
+            style={{
+              border: item.completed
+                ? "1px solid #00a845"
+                : " 1px solid #df3949",
+            }}
+          >
             {editIndex === item.id ? (
               <input
                 type="text"
@@ -142,7 +172,7 @@ const Home = () => {
                 readOnly={editIndex === "" && editIndex !== item.id}
               />
             ) : (
-              <p>{item.title}</p>
+              <p style={{ color: "#000" }}>{item.title}</p>
             )}
             <div>
               {editIndex === item.id ? (
@@ -188,13 +218,13 @@ const Home = () => {
               <BsCheck2Square
                 className="button-complete"
                 style={{
-                  color: check.includes(item.id) ? "lightseagreen" : "#fff",
+                  color: item.completed ? "lightseagreen" : "#df3949",
                 }}
-                onClick={completeTask}
+                onClick={d}
               />
               <RiDeleteBin5Line
                 className="button-delete"
-                onClick={deleteTask}
+                onClick={() => deleteTask(item.id)}
               />
             </div>
           </li>
@@ -206,6 +236,8 @@ const Home = () => {
         {pagination}
         {nextButton}
       </div>
+
+      <AddTask newTask={newTask} setNewTask={setNewTask} addTask={addTask} />
     </div>
   );
 };

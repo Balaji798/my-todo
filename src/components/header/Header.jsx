@@ -1,36 +1,21 @@
-import { useRef } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { useState } from "react";
 import "./header.css";
-import { Link } from "react-router-dom";
+import NavBar from "./NavBar";
+import SideBar from "../sidebar/SideBar";
 
 const Header = () => {
-  const navRef = useRef();
+  const [show,setShow] = useState(false)
+  // const navRef = useRef();
 
-  const showNavbar = () => {
-    navRef.current.classList.toggle("responsive_nav");
-  };
+  // const showNavbar = () => {
+  //   navRef.current.classList.toggle("responsive_nav");
+  // };
 
   return (
-    <header>
-      <Link
-        to="/"
-        style={{ textDecoration: "none", color: "#fff", fontWeight: "bold",fontSize:"20px" }}
-      >
-        My Todo
-      </Link>
-      <nav ref={navRef}>
-        <a href="/#">Home</a>
-        <a href="/#">My work</a>
-        <a href="/#">Blog</a>
-        <a href="/#">About me</a>
-        <button className="nav-btn nav-close-btn" onClick={showNavbar}>
-          <FaTimes />
-        </button>
-      </nav>
-      <button className="nav-btn" onClick={showNavbar}>
-        <FaBars />
-      </button>
-    </header>
+    <>
+      <NavBar setShow={setShow} show={show}/>
+      <SideBar setShow={setShow} show={show}/>
+    </>
   );
 };
 
