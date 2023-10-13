@@ -48,48 +48,45 @@ const PendingTask = () => {
 
   const completeTask = async (id) => {
     try {
-      todoData.forEach((item) => {
+      // Step 1: Toggle the 'completed' status of the task with the specified 'id'
+      const updatedTodoData = todoData.map((item) => {
         if (item.id === id) {
-          item.completed = !item.completed;
+          return { ...item, completed: !item.completed };
         }
+        return item;
       });
 
-      await setTodo(dispatch, todoData);
-      await setCompletedList(
-        dispatch,
-        todoData.filter((item) => {
-          if (item.completed) {
-            return item;
-          }
-          return null;
-        })
+      // Step 2: Dispatch the updated 'todoData'
+      await setTodo(dispatch, updatedTodoData);
+
+      // Step 3: Create updated 'completedList' and 'pendingTask' arrays
+      const updatedCompletedList = updatedTodoData.filter((item) => {
+        if (item.completed) return item;
+        return null;
+      });
+      const updatedPendingTask = updatedTodoData.filter((item) => {
+        if (!item.completed) return item;
+        return null;
+      });
+
+      // Step 4: Dispatch the updated 'completedList' and 'pendingTask'
+      await setCompletedList(dispatch, updatedCompletedList);
+      await setPendingTask(dispatch, updatedPendingTask);
+
+      // Step 5: Update 'currentTasks' based on the updated data
+      const updatedCurrentTasks = updatedPendingTask.slice(
+        indexOfFirstTask,
+        indexOfLastTask
       );
-      await setPendingTask(
-        dispatch,
-        todoData.filter((item) => {
-          if (!item.completed) {
-            return item;
-          }
-          return null;
-        })
-      );
-      setCurrentTask(
-        todoData
-          .filter((item) => {
-            if (!item.completed) {
-              return item;
-            }
-            return null;
-          })
-          .slice(indexOfFirstTask, indexOfLastTask)
-      );
+
+      setCurrentTask(updatedCurrentTasks);
     } catch (err) {
       console.log(err);
       alert(err);
     }
   };
 
-  const deleteTask =async (id) => {
+  const deleteTask = async (id) => {
     try {
       const updatedTodoData = todoData.filter((item) => {
         if (item.id !== id) return item;

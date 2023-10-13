@@ -57,37 +57,44 @@ const TotalTask = () => {
     setEditIndex("");
   };
 
-  const completeTask = (id) => {
+  const completeTask = async (id) => {
     try {
+      // Step 1: Toggle the 'completed' status of the task with the specified 'id'
+      const updatedTodoData = todoData.map((item) => {
+        if (item.id === id) {
+          return { ...item, completed: !item.completed };
+        }
+        return item;
+      });
+
+      // Step 2: Dispatch the updated 'todoData'
+      await setTodo(dispatch, updatedTodoData);
+
+      // Step 3: Create updated 'completedList' and 'pendingTask' arrays
+      const updatedCompletedList = updatedTodoData.filter((item) => {
+        if (item.completed) return item;
+        return null;
+      });
+      const updatedPendingTask = updatedTodoData.filter((item) => {
+        if (!item.completed) return item;
+        return null;
+      });
+
+      // Step 4: Dispatch the updated 'completedList' and 'pendingTask'
+      await setCompletedList(dispatch, updatedCompletedList);
+      await setPendingTask(dispatch, updatedPendingTask);
+
+      // Step 5: Update 'currentTasks' based on the updated data
+      const updatedCurrentTasks = updatedPendingTask.slice(
+        indexOfFirstTask,
+        indexOfLastTask
+      );
+
+      setCurrentTask(updatedCurrentTasks);
     } catch (err) {
       console.log(err);
       alert(err);
     }
-    todoData.forEach((item) => {
-      if (item.id === id) {
-        item.completed = !item.completed;
-      }
-    });
-    setTodo(dispatch, todoData);
-    setCompletedList(
-      dispatch,
-      todoData.filter((item) => {
-        if (item.completed) {
-          return item;
-        }
-        return null;
-      })
-    );
-    setPendingTask(
-      dispatch,
-      todoData.filter((item) => {
-        if (!item.completed) {
-          return item;
-        }
-        return null;
-      })
-    );
-    setCurrentTask(todoData.slice(indexOfFirstTask, indexOfLastTask));
   };
 
   const deleteTask = async (id) => {
