@@ -1,8 +1,12 @@
 import {combineReducers} from "redux";
-import postReducer from "./postReducer";
+import todoReducer from "./todoReducer";
+import completedReducer from "./completedReducer";
+import pendingReducer from "./pendingReducer";
 
 const reducers = combineReducers({
-    product:postReducer
+    todoList:todoReducer,
+    completedList:completedReducer,
+    pendingList:pendingReducer
 });
 
 export default reducers

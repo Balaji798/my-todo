@@ -72,7 +72,7 @@ const AddTask = ({ newTask, setNewTask, addTask }) => {
         onClick={() => {
           setOpen(true);
         }}
-        style={{ position: !open && "fixed" }}
+        style={{ opacity: open && 0 }}
       >
         Add New Task +
       </button>

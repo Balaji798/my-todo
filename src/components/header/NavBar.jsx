@@ -13,6 +13,7 @@ const NavBar = ({ setShow,show }) => {
       >
         <img
           src="./todo.png"
+          alt="/"
           style={{ objectFit: "contain", width: "2rem", marginRight: "0.5rem" }}
         />
 

@@ -3,13 +3,13 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  max-width: 900px;
+  max-width: 800px;
   width: 100%;
 }
 
 .card {
   background-color: #fff;
-  width: 17rem;
+  width: 16rem;
   border-radius: 15px;
   display: flex;
   padding: 10px;

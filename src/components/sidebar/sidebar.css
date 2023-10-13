@@ -8,6 +8,7 @@
   position: fixed;
   height: 100vh;
   margin-top: 5rem;
+  transition: 350ms;
 }
 
 .menuContainer {

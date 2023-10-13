@@ -1,9 +1,9 @@
-const post = [];
-export const fetchPosts = async (dispatch, post) => {
+
+export const setTodo = async (dispatch, todoData) => {
   try {
-    dispatch({ type: "FETCH_POSTS_SUCCESS", post: post });
+    dispatch({ type: "FETCH_TODO_LIST_SUCCESS", todoData: todoData });
   } catch (error) {
-    dispatch({ type: "FETCH_POSTS_FAILURE", post: error.message });
+    dispatch({ type: "FETCH_TODO_LIST_FAILURE", todoData: error.message });
   }
 };
 

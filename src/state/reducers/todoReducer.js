@@ -1,10 +1,10 @@
 const initialState = {
-  posts: [],
+  todoData: [],
   loading: false,
   error: null,
 };
 
-const postReducer = (state = initialState, action) => {
+const todoReducer = (state = initialState, action) => {
   switch (action.type) {
     case "FETCH_POSTS_REQUEST":
       return {
@@ -14,14 +14,14 @@ const postReducer = (state = initialState, action) => {
     case "FETCH_POSTS_SUCCESS":
       return {
         ...state,
-        post: action.post,
+        todoData: action.todoData,
         loading: false,
         error: null,
       };
     case "GET_ALL_POSTS":
     return{
       ...state,
-      post:action.post,
+      todoData:action.post,
       loading:false,
       error:null
     };
@@ -29,7 +29,7 @@ const postReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        error: action.post,
+        error: action.todoData,
       };
     case "ADD_POST_REQUEST":
       return {
@@ -39,7 +39,7 @@ const postReducer = (state = initialState, action) => {
     case "ADD_POST_SUCCESS":
       return {
         ...state,
-        post: [...state, action.post],
+        todoData: [...state, action.todoData],
         loading: false,
         error: null
       };
@@ -48,4 +48,4 @@ const postReducer = (state = initialState, action) => {
   }
 };
 
-export default postReducer;
+export default todoReducer;

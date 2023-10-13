@@ -28,7 +28,7 @@ const SideBar = ({ show }) => {
         {sideBarMenu.map((item, index) => (
           <li
             key={index}
-            style={{ background: activeIndex == index && "#5767aa" }}
+            style={{ background: activeIndex === index && "#5767aa" }}
           >
             {item.icon}
             <p
