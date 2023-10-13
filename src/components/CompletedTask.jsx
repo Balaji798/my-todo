@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setTodo } from "../state/actions/todoAction";
 import { setCompletedList } from "../state/actions/completedAction";
 import { setPendingTask } from "../state/actions/pendingAction";
+import Pagination from "./Pagination";
 
 const CompletedTask = () => {
   const { todoData } = useSelector((state) => state.todoList);
@@ -29,7 +30,6 @@ const CompletedTask = () => {
   }, [
     currentPage,
     todoData,
-    dispatch,
     indexOfFirstTask,
     indexOfLastTask,
     completedTask,
@@ -123,48 +123,6 @@ const CompletedTask = () => {
     }
   };
 
-  const pagesPerGroup = 3;
-  // Generate the pagination buttons
-  const startPage = (pageGroup - 1) * pagesPerGroup + 1;
-  const endPage = Math.min(pageGroup * pagesPerGroup, totalPages);
-
-  // Generate the pagination buttons for the current group
-  const pagination = [];
-  for (let i = startPage; i <= endPage; i++) {
-    pagination.push(
-      <button
-        key={i}
-        onClick={() => setCurrentPage(i)}
-        className={"button-add"}
-        style={{ margin: "0 10px" }}
-      >
-        {i}
-      </button>
-    );
-  }
-
-  // Generate "Previous" and "Next" buttons
-  const previousButton = (
-    <button
-      key="prev"
-      onClick={() => setPageGroup(pageGroup - 1)}
-      disabled={pageGroup === 1}
-      className="button-add"
-    >
-      Previous
-    </button>
-  );
-
-  const nextButton = (
-    <button
-      key="next"
-      onClick={() => setPageGroup(pageGroup + 1)}
-      disabled={pageGroup >= Math.ceil(totalPages / pagesPerGroup)}
-      className="button-add"
-    >
-      Next
-    </button>
-  );
   return (
     <>
       <div className="todoContainer">
@@ -249,12 +207,13 @@ const CompletedTask = () => {
           </li>
         ))}
       </div>
-      <div className="pagination">
-        {" "}
-        {previousButton}
-        {pagination}
-        {nextButton}
-      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        pageGroup={pageGroup}
+        onPageChange={setCurrentPage}
+        onPageGroupChange={setPageGroup}
+      />
     </>
   );
 };
