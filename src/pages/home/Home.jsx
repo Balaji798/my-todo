@@ -52,34 +52,20 @@ const Home = () => {
   }, [dispatch]);
 
   const addTask = async () => {
-    const data = [
-      ...[
-        {
-          title: newTask,
-          id: todoList.todoData.length + 1,
-          userId: 1,
-          completed: false,
-        },
-      ],
-      ...todoList.todoData,
-    ];
-    await setTodo(dispatch, data);
-    await setPendingTask(dispatch, [
-      ...[
-        {
-          title: newTask,
-          id: todoList.todoData.length + 1,
-          userId: 1,
-          completed: false,
-        },
-      ],
-      ...todoList.todoData.filter((item) => {
-        if (!item.completed) {
-          return item;
-        }
-        return null;
-      }),
-    ]);
+    const newTaskObject = {
+      title: newTask,
+      id: todoList.todoData.length + 1,
+      userId: 1,
+      completed: false,
+    };
+  
+    // Update the entire todoData
+    const updatedTodoData = [newTaskObject, ...todoList.todoData];
+    await setTodo(dispatch, updatedTodoData);
+  
+    // Update the pending tasks
+    const updatedPendingTasks = [newTaskObject, ...todoList.todoData.filter((item) => !item.completed)];
+    await setPendingTask(dispatch, updatedPendingTasks);
   };
 
   return (
