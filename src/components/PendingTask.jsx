@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { BsCheck2Square } from "react-icons/bs";
 import { RiDeleteBin5Line } from "react-icons/ri";
@@ -24,6 +24,16 @@ const PendingTask = () => {
     pendingTask.slice(indexOfFirstTask, indexOfLastTask)
   );
 
+  useEffect(() => {
+    setCurrentTask(pendingTask.slice(indexOfFirstTask, indexOfLastTask));
+  }, [
+    currentPage,
+    todoData,
+    dispatch,
+    indexOfFirstTask,
+    indexOfLastTask,
+    pendingTask,
+  ]);
   const editTask = async (id) => {
     try {
       todoData.forEach((item) => {

@@ -58,13 +58,16 @@ const Home = () => {
       userId: 1,
       completed: false,
     };
-  
+
     // Update the entire todoData
     const updatedTodoData = [newTaskObject, ...todoList.todoData];
     await setTodo(dispatch, updatedTodoData);
-  
+
     // Update the pending tasks
-    const updatedPendingTasks = [newTaskObject, ...todoList.todoData.filter((item) => !item.completed)];
+    const updatedPendingTasks = [
+      newTaskObject,
+      ...todoList.todoData.filter((item) => !item.completed),
+    ];
     await setPendingTask(dispatch, updatedPendingTasks);
   };
 

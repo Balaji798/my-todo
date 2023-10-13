@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { BsCheck2Square } from "react-icons/bs";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { deleteTodo, setTodo } from "../state/actions/todoAction";
+import { setTodo } from "../state/actions/todoAction";
 import { setCompletedList } from "../state/actions/completedAction";
 import { setPendingTask } from "../state/actions/pendingAction";
 
@@ -23,6 +23,9 @@ const TotalTask = () => {
     todoData?.slice(indexOfFirstTask, indexOfLastTask)
   );
 
+  useEffect(() => {
+    setCurrentTask(todoData.slice(indexOfFirstTask, indexOfLastTask));
+  }, [currentPage, todoData, dispatch, indexOfFirstTask, indexOfLastTask]);
   const editTask = async (id) => {
     try {
     } catch (err) {
