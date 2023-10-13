@@ -29,91 +29,94 @@ const CompletedTask = () => {
   // }, [currentPage, todoData]);
 
   const editTask = async (id) => {
-    todoData.forEach((item) => {
-      if (item.id === id) {
-        item.title = newValue;
-      }
-    });
-    completedTask.forEach((item) => {
-      if (item.id === id) {
-        item.title = newValue;
-      }
-    });
+    try {
+      todoData.forEach((item) => {
+        if (item.id === id) {
+          item.title = newValue;
+        }
+      });
+      completedTask.forEach((item) => {
+        if (item.id === id) {
+          item.title = newValue;
+        }
+      });
 
-    await setTodo(dispatch, todoData);
-    await setCompletedList(dispatch, completedTask);
-    setCurrentTask(completedTask.slice(indexOfFirstTask, indexOfLastTask));
-    setEditIndex("");
+      await setTodo(dispatch, todoData);
+      await setCompletedList(dispatch, completedTask);
+      setCurrentTask(completedTask.slice(indexOfFirstTask, indexOfLastTask));
+      setEditIndex("");
+    } catch (err) {
+      console.log(err);
+      alert(err);
+    }
   };
 
   const completeTask = async (id) => {
-    todoData.forEach((item) => {
-      if (item.id === id) {
-        item.completed = !item.completed;
-      }
-    });
+    try {
+      todoData.forEach((item) => {
+        if (item.id === id) {
+          item.completed = !item.completed;
+        }
+      });
 
-    setTodo(dispatch, todoData);
-    setCompletedList(
-      dispatch,
-      todoData.filter((item) => {
-        if (item.completed) {
-          return item;
-        }
-        return null;
-      })
-    );
-    await setPendingTask(
-      dispatch,
-      todoData.filter((item) => {
-        if (!item.completed) {
-          return item;
-        }
-        return null;
-      })
-    );
-    setCurrentTask(
-      todoData
-        .filter((item) => {
+      setTodo(dispatch, todoData);
+      setCompletedList(
+        dispatch,
+        todoData.filter((item) => {
           if (item.completed) {
             return item;
           }
           return null;
         })
-        .slice(indexOfFirstTask, indexOfLastTask)
-    );
-  };
-
-  const deleteTask = async (id) => {
-    await setTodo(
-      dispatch,
-      todoData.filter((item) => {
-        if (item.id !== id) {
-          return item;
-        }
-        return null;
-      })
-    );
-    await setCompletedList(
-      dispatch,
-      completedTask.filter((item) => {
-        if (item.id !== id) {
-          return item;
-        }
-        return null;
-      })
-    );
-    setCurrentTask(
-      dispatch,
-      completedTask
-        .filter((item) => {
-          if (item.id !== id) {
+      );
+      await setPendingTask(
+        dispatch,
+        todoData.filter((item) => {
+          if (!item.completed) {
             return item;
           }
           return null;
         })
-        .slice(indexOfFirstTask, indexOfLastTask)
-    );
+      );
+      setCurrentTask(
+        todoData
+          .filter((item) => {
+            if (item.completed) {
+              return item;
+            }
+            return null;
+          })
+          .slice(indexOfFirstTask, indexOfLastTask)
+      );
+    } catch (err) {
+      console.log(err);
+      alert(err);
+    }
+  };
+
+  const deleteTask = async (id) => {
+    try {
+      const updatedTodoData = todoData.filter((item) => {
+        if (item.id !== id) return item;
+        return null;
+      });
+      const updatedCompletedList = completedTask.filter((item) => {
+        if (item.id !== id) return item;
+        return null;
+      });
+
+      await setTodo(dispatch, updatedTodoData);
+      await setCompletedList(dispatch, updatedCompletedList);
+
+      // If you need to update `currentTasks` based on the updated data, do it here
+      const updatedCurrentTasks = updatedCompletedList.slice(
+        indexOfFirstTask,
+        indexOfLastTask
+      );
+      setCurrentTask(updatedCurrentTasks);
+    } catch (err) {
+      alert(err);
+    }
   };
 
   const pagesPerGroup = 3;

@@ -4,7 +4,7 @@ import { BsCheck2Square } from "react-icons/bs";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { setTodo } from "../state/actions/todoAction";
+import { deleteTodo, setTodo } from "../state/actions/todoAction";
 import { setCompletedList } from "../state/actions/completedAction";
 import { setPendingTask } from "../state/actions/pendingAction";
 
@@ -24,6 +24,11 @@ const TotalTask = () => {
   );
 
   const editTask = async (id) => {
+    try {
+    } catch (err) {
+      console.log(err);
+      alert(err);
+    }
     todoData.forEach((item) => {
       if (item.id === id) {
         item.title = newValue;
@@ -53,6 +58,11 @@ const TotalTask = () => {
   };
 
   const completeTask = (id) => {
+    try {
+    } catch (err) {
+      console.log(err);
+      alert(err);
+    }
     todoData.forEach((item) => {
       if (item.id === id) {
         item.completed = !item.completed;
@@ -80,17 +90,18 @@ const TotalTask = () => {
     setCurrentTask(todoData.slice(indexOfFirstTask, indexOfLastTask));
   };
 
-  const deleteTask = (id) => {
-    setTodo(
-      todoData
-        .filter((item) => {
-          if (item.id !== id) {
-            return item;
-          }
-          return null;
-        })
-        .reverse()
-    );
+  const deleteTask = async (id) => {
+    try {
+      const data = todoData.filter((item) => {
+        if (item.id !== id) return item;
+        return null;
+      });
+      await setTodo(dispatch, data);
+      setCurrentTask(data.slice(indexOfFirstTask, indexOfLastTask));
+    } catch (err) {
+      console.log(err);
+      alert(err);
+    }
   };
 
   // Calculate the total number of pages
@@ -107,8 +118,8 @@ const TotalTask = () => {
       <button
         key={i}
         onClick={() => setCurrentPage(i)}
-        className={  "button-add"}
-        style={{margin:"0 10px"}}
+        className={"button-add"}
+        style={{ margin: "0 10px" }}
       >
         {i}
       </button>

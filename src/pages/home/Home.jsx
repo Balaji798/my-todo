@@ -52,12 +52,6 @@ const Home = () => {
   }, [dispatch]);
 
   const addTask = async () => {
-    // todoData.push({
-    //   title: newTask,
-    //   id: todoData.length + 1,
-    //   userId: 1,
-    //   completed: false,
-    // });
     const data = [
       ...[
         {
