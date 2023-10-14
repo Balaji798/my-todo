@@ -33,6 +33,7 @@ const NavBar = ({ setShow, show }) => {
 
           <h2 style={{ fontFamily: "'Jost', sans-serif" }}>My TODO</h2>
         </div>
+        <div className="display search-container">
         <div className="search-bar">
           <BsSearch size={20} color="#000" />
           <input
@@ -77,6 +78,7 @@ const NavBar = ({ setShow, show }) => {
           <></>
         )}
       </div>
+        </div>
     </header>
   );
 };
