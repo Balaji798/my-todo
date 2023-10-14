@@ -148,8 +148,59 @@ button:focus {
   outline: none;
 }
 
-
+.newAdd-container {
+  position: fixed;
+  width: 200px;
+  height: 100%;
+  margin: 0 auto 0;
+  -webkit-perspective: 1000;
+  -webkit-backface-visibility: hidden;
+  background: #fff;
+}
 .newAdd-button {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  margin-left: -50px;
+  margin-top: -50px;
+  display: block;
+  width: 100px;
+  height: 100px;
+  font-size: 1.3em;
+  font-weight: light;
+  font-family: 'Trebuchet MS', sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 100px;
+  letter-spacing: -1px;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  background: #5a99d4;
+  cursor: pointer;
+  box-shadow: 0 0 0 0 rgba(#5a99d4, .5);
+  -webkit-animation: pulse 1.5s infinite;
+}
+.newAdd-button:hover {
+  -webkit-animation: none;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    @include transform(scale(.9));
+  }
+  70% {
+    @include transform(scale(1));
+    box-shadow: 0 0 0 50px rgba(#5a99d4, 0);
+  }
+    100% {
+    @include transform(scale(.9));
+    box-shadow: 0 0 0 0 rgba(#5a99d4, 0);
+  }
+}
+
+
+/*.newAdd-button {
   position: fixed;
   align-self: flex-end;
   bottom: 5%;
@@ -169,13 +220,13 @@ button:focus {
   cursor: pointer;
   border: 0px solid #f099a4;
   outline: none;
-}
+}*/
 
-.newAdd-button:hover {
+/*.newAdd-button:hover {
   opacity: 0.8;
   transition: 0.3s ease-in-out;
   border: 5px solid #f099a4;
-}
+}*/
 
 @media screen and (max-width: 780px) {
   .container {
