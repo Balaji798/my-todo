@@ -114,9 +114,14 @@ const TotalTask = () => {
         if (item.id !== id) return item;
         return null;
       });
-
+      
+       const updatedCompletedList = completedTask.filter((item) => {
+        if (item.id !== id) return item;
+        return null;
+      });
       await setTodo(dispatch, data);
       await setPendingTask(dispatch, updatedPendingList);
+      await setCompletedList(dispatch,updatedCompletedList);
       setCurrentTask(data.slice(indexOfFirstTask, indexOfLastTask));
     } catch (err) {
       console.log(err);
