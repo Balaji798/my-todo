@@ -12,6 +12,7 @@ import Pagination from "./Pagination";
 const TotalTask = () => {
   const { todoData } = useSelector((state) => state.todoList);
   const {pendingTask} = useSelector(state=> state.pendingList);
+  const { completedTask } = useSelector((state) => state.completedList);
   const dispatch = useDispatch();
   const [newValue, setNewValue] = useState("");
   const [editIndex, setEditIndex] = useState("");
