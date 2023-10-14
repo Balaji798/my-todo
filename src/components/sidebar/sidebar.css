@@ -44,7 +44,9 @@
 @media screen and (max-width: 780px) {
   .sidebarContainer {
     left: -100%;
+    margin-top: 3rem;
   }
+
 
   .active{
     left: 0;
