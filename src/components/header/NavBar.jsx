@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { FaBars } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
+import {ImCross} from "react-icons/im";
 import { BsSearch } from "react-icons/bs";
 import { useSelector } from "react-redux";
 
@@ -20,7 +21,7 @@ const NavBar = ({ setShow, show }) => {
           }}
         >
           <button className="nav-btn" onClick={() => setShow(!show)}>
-            {show ? <RxCross2 /> : <FaBars />}
+            {show ? <ImCross /> : <FaBars />}
           </button>
           <img
             src="./todo.png"
