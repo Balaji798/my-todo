@@ -11,6 +11,7 @@ import Pagination from "./Pagination";
 
 const TotalTask = () => {
   const { todoData } = useSelector((state) => state.todoList);
+  const {pendingTask} = useSelector(state=> state.pendingList);
   const dispatch = useDispatch();
   const [newValue, setNewValue] = useState("");
   const [editIndex, setEditIndex] = useState("");
@@ -107,7 +108,14 @@ const TotalTask = () => {
         if (item.id !== id) return item;
         return null;
       });
+      
+      const updatedCompletedList = pendingTask.filter((item) => {
+        if (item.id !== id) return item;
+        return null;
+      });
+
       await setTodo(dispatch, data);
+      await setPendingTask(dispatch, updatedCompletedList);
       await setPendingTask(dispatch, data.filter(item=>{if(!item.complited) return item; return null ;}));
       await setCompletedList(dispatch,data.filter(item=>{if(item.complited) return item; return null;})) 
       setCurrentTask(data.slice(indexOfFirstTask, indexOfLastTask));
