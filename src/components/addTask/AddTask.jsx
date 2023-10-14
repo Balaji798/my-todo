@@ -67,6 +67,7 @@ const AddTask = ({ newTask, setNewTask, addTask }) => {
           </div>
         </div>
       )}
+      <div className="newAdd-container">
       <button
         className="newAdd-button"
         onClick={() => {
@@ -76,6 +77,7 @@ const AddTask = ({ newTask, setNewTask, addTask }) => {
       >
         Add New Task +
       </button>
+        </div>
     </>
   );
 };
