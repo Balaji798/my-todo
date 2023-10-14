@@ -31,15 +31,11 @@ const TotalTask = () => {
   }, [currentPage, todoData, dispatch, indexOfFirstTask, indexOfLastTask]);
   const editTask = async (id) => {
     try {
-    } catch (err) {
-      console.log(err);
-      alert(err);
-    }
-    todoData.forEach((item) => {
-      if (item.id === id) {
-        item.title = newValue;
-      }
-    });
+          todoData.forEach((item) => {
+            if (item.id === id) {
+            item.title = newValue;
+          }
+       });
     await setTodo(dispatch, todoData);
     await setCompletedList(
       dispatch,
@@ -61,6 +57,10 @@ const TotalTask = () => {
     );
     setCurrentTask(todoData.slice(indexOfFirstTask, indexOfLastTask));
     setEditIndex("");
+    } catch (err) {
+      console.log(err);
+      alert(err);
+    }
   };
 
   const completeTask = async (id) => {
