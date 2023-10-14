@@ -108,6 +108,7 @@ const TotalTask = () => {
         return null;
       });
       await setTodo(dispatch, data);
+      await setPendingTask(dispatch, data.filter(item=>{if(!item.complited) return item; return null}));
       setCurrentTask(data.slice(indexOfFirstTask, indexOfLastTask));
     } catch (err) {
       console.log(err);
