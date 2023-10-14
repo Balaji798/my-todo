@@ -21,7 +21,7 @@ const NavBar = ({ setShow, show }) => {
           }}
         >
           <button className="nav-btn" onClick={() => setShow(!show)}>
-            {show ? <ImCross /> : <FaBars />}
+            {show ? <ImCross size={20}/> : <FaBars />}
           </button>
           <img
             src="./todo.png"
