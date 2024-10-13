@@ -3,12 +3,12 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import "./header.css"
 
 const Header = () => {
-    const navRef = useRef();
+	const navRef = useRef<HTMLElement | null>(null);
 
 	const showNavbar = () => {
-		navRef.current.classList.toggle(
-			"responsive_nav"
-		);
+		if (navRef.current) {
+			navRef.current.classList.toggle("responsive_nav");
+		  }
 	};
 
 	return (

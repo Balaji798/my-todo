@@ -3,13 +3,11 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate,
 } from "react-router-dom";
 import "./App.css"
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
-import Home from './pages/home/Home';
-import Todolist from './pages/Todolist';
+import Home from './pages/Home';
 
 const App = () => {
   return (
@@ -17,7 +15,6 @@ const App = () => {
       <Header/>
       <Routes>
         <Route path='/' element={<Home/>}/>
-        <Route path="/my-todo-list" element={<Todolist/>}/>
       </Routes>
       <Footer/>
     </Router>

@@ -1,70 +1,117 @@
-# Getting Started with Create React App
+# Task Management Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+This project is a **Task Management Dashboard** built with **React.js**, **Supabase**, **React Hook Form**, and **Yup** for form validation. The application allows users to create, edit, and view tasks for a specific project. It also includes filtering capabilities and supports both client-side pagination. 
 
-In the project directory, you can run:
+### Key Features:
+1. **Project Dashboard Page**: Lists all tasks for a specific project.
+   - Displays the following task details: Title, Status, Assignee, Priority, and Due Date.
+   - Allows filtering tasks by status (To Do, In Progress, Completed).
+   - Implements client-side pagination or infinite scroll for the task list.
+  
+2. **Create/Edit Task Modal**: 
+   - Users can create a new task or edit an existing one through a modal.
+   - The task form includes Title, Description, Assignee, Priority, Due Date, and Status fields.
+   - Form validation is done using the Yup library.
+   - Real-time task updates without page reloading.
 
-### `npm start`
+## Tech Stack:
+- **React**: SSG for performance optimization.
+- **Supabase**: Handles backend functionality, task data storage, and fetching.
+- **React Hook Form**: Efficiently manages form state and validation.
+- **Yup**: Ensures form validation with meaningful feedback.
+- **TypeScript**: Ensures strong typing across the app, making it more robust and maintainable.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features Implemented
+1. **Project Dashboard Page**:
+   - Lists tasks with their respective details: Title, Status, Assignee, Priority, and Due Date.
+   - Provides filtering functionality by status (e.g., To Do, In Progress, Completed).
+   - Implements pagination to efficiently load large datasets.
+   
+2. **Create/Edit Task Modal**:
+   - Allows users to create new tasks or edit existing ones via a modal form.
+   - The form includes proper validation for required fields (Title, Assignee, Priority, Status, Due Date).
+   - Real-time task updates without needing to refresh the page after task creation or editing.
+   
+3. **Form Validation**: The form is validated using **Yup**, and fields like Title, Assignee, Priority, Status, and Due Date are required. Errors are handled gracefully and displayed to the user.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Project Structure:
+```
+.
+├── components
+│   ├── TaskFilter.tsx           # Filters tasks by status
+│   ├── TaskItem.tsx             # Task item component
+│   ├── TaskModal.tsx            # Modal component for task creation/editing
+├── pages
+│   ├──Home.tsx                # Home page (Project Dashboard)
+│   └── home.css                      # API routes (if needed)
+├── types
+│   └── task.ts                  # TypeScript types/interfaces
+├── utils
+│   └── validation.ts            # Yup validation schema for forms
+├── styles                       # CSS/SCSS styles
+│
+└── README.md                    # Project documentation
+```
 
-### `npm test`
+## Installation & Setup
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites:
+- **Node.js**: Make sure you have Node.js installed on your system.
+- **Supabase Account**: You will need a Supabase account with a database set up for the task management system.
+- **Environment Variables**: Configure your `.env.local` file to include the Supabase keys.
 
-### `npm run build`
+### Steps to Run Locally:
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/Balaji798/my-todo.git
+   cd task-management-dashboard
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. **Install Dependencies**:
+   ```bash
+   npm install
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. **Setup Environment Variables**:
+   Create a `.env.local` file in the root of your project and add the following:
+   ```bash
+   NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. **Run the Application**:
+   ```bash
+   npm run dev
+   ```
 
-### `npm run eject`
+   The project will be running at `http://localhost:5173/`.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+5. **Set up Supabase Database**:
+   Create a `tasks` table in your Supabase project with the following fields:
+   - `id` (Primary key, UUID)
+   - `title` (Text)
+   - `description` (Text, optional)
+   - `assignee` (Text)
+   - `priority` (Enum: Low, Medium, High)
+   - `status` (Enum: To Do, In Progress, Completed)
+   - `due_date` (Date)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Additional Features & Assumptions:
+- **Client-Side Pagination**: Added basic pagination for better performance with large datasets.
+- **Form Validation**: Implemented validation using Yup for required fields.
+- **Optimized for SSR/SSG**: Uses Next.js's server-side capabilities to pre-render pages and improve performance.
+  
+## How to Use:
+1. **Task Dashboard**: The main page displays all tasks. You can filter tasks by their status.
+2. **Add/Edit Tasks**: Click on "Add New Task" to open the modal for creating a new task or edit an existing one.
+3. **Real-Time Updates**: Any task updates (new or edited) are reflected in real-time without the need for a page refresh.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Conclusion:
+This project demonstrates a clean and functional task management system with a focus on real-time updates and task filtering. It adheres to best practices in React, Next.js, and TypeScript, ensuring modularity and maintainability.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+Feel free to contribute or suggest improvements by creating issues or submitting PRs!
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
