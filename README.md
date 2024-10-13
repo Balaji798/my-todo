@@ -36,6 +36,8 @@ This project is a **Task Management Dashboard** built with **React.js**, **Supab
    
 3. **Form Validation**: The form is validated using **Yup**, and fields like Title, Assignee, Priority, Status, and Due Date are required. Errors are handled gracefully and displayed to the user.
 
+4. **Extra Features**: I have added task delete feature in the project
+
 ## Project Structure:
 ```
 .

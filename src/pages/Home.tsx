@@ -36,8 +36,8 @@ const Home = () => {
       const { data, error } = await supabase
         .from("tasks")
         .select("*")
-        .order("id", { ascending: true })
-         // Fetch tasks based on current page
+        .order("id", { ascending: true });
+      // Fetch tasks based on current page
 
       if (error) {
         console.error("Error fetching tasks", error);
@@ -138,6 +138,21 @@ const Home = () => {
       </div>
     );
 
+    const handleDeleteTask = async (taskId: string) => {
+      const { error } = await supabase
+        .from("tasks")
+        .delete()
+        .eq("id", Number(taskId)); // Ensure the correct ID type is used here
+    
+      if (error) {
+        console.error("Error deleting task", error);
+      } else {
+        // Update local state
+        const updatedTasks = tasks.filter((task) => task.id !== taskId); // Ensure this matches the taskId type
+        setTasks(updatedTasks);
+        setFilteredTasks(updatedTasks);
+      }
+    };
   return (
     <div className="container">
       <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -161,13 +176,15 @@ const Home = () => {
         <TaskFilter onFilterChange={handleFilterChange} />
       </div>
       <div className="app-wrapper">
-        {filteredTasks.slice((currentPage - 1) * tasksPerPage, currentPage * tasksPerPage)
+        {filteredTasks
+          .slice((currentPage - 1) * tasksPerPage, currentPage * tasksPerPage)
           .map((item) => (
             <TaskItem
               item={item}
               handleEditTask={handleEditTask}
               setIsModalOpen={setIsModalOpen}
               setTitle={setTitle}
+              handleDeleteTask={handleDeleteTask}
             />
           ))}
       </div>

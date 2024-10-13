@@ -9,13 +9,28 @@ interface TaskItemProps {
   handleEditTask: (task: Task) => void; // Function type that accepts a Task
   setIsModalOpen: (isOpen: boolean) => void; // Function to set modal state
   setTitle: (title: string) => void; // Function to set the modal title
+  handleDeleteTask: (taskId: string) => void; // Change here to string
 }
 const TaskItem: React.FC<TaskItemProps> = ({
   item,
   handleEditTask,
   setIsModalOpen,
   setTitle,
+  handleDeleteTask, // Add this line
 }) => {
+  const confirmDelete = () => {
+    Modal.confirm({
+      title: "Confirm Deletion",
+      content: `Are you sure you want to delete the task "${item.title}"?`,
+      onOk: () => {
+        if (item.id !== undefined) {
+          handleDeleteTask(item.id.toString()); // Ensure item.id is a number
+        } else {
+          console.error("Task ID is undefined");
+        }
+      },
+    });
+  };
   return (
     <div className="list-item" key={item.id}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -39,18 +54,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
             <FiEdit size={25} color="#1677ff" />
           </button>
           <button
-            onClick={() => {
-              Modal.confirm({
-                title: "Confirm",
-                content: "Bla bla ...",
-                footer: (_, { OkBtn, CancelBtn }) => (
-                  <>
-                    <CancelBtn />
-                    <OkBtn />
-                  </>
-                ),
-              });
-            }}
+            onClick={confirmDelete}
           >
             <RiDeleteBin6Line size={24} color="red" />
           </button>
