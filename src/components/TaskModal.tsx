@@ -8,7 +8,6 @@ interface TaskModalProps {
   control: Control<Task>; // Control from react-hook-form
 }
 const TaskModal: React.FC<TaskModalProps> = ({ errors, control }) => {
-  console.log(errors);
   const options = [
     { value: "Jhon", label: "Jhon" },
     { value: "Same", label: "Same" },
@@ -40,8 +39,9 @@ const TaskModal: React.FC<TaskModalProps> = ({ errors, control }) => {
           control={control}
           render={({ field }) => (
             <TextArea
-              {...field} // Connect Input with react-hook-form
-              placeholder="Enter Task Description"
+            {...field}
+            value={field.value ?? ""} // Convert null or undefined to an empty string
+            placeholder="Enter Task Description"
             />
           )}
         />
@@ -131,7 +131,7 @@ const TaskModal: React.FC<TaskModalProps> = ({ errors, control }) => {
             <Input
               type="date"
               {...field} // Connect Input with react-hook-form
-              value={field.value ? field.value.toISOString().split('T')[0] : ''}
+              value={field.value ? new Date(field.value).toISOString().split('T')[0] : ''}
             />
           )}
         />

@@ -1,7 +1,7 @@
 export interface Task {
-    id?: string;
+    id?: number;
     title: string;
-    description?: string;
+    description?: string | null;
     assignee: string;
     priority: "Low" | "Medium" | "High";
     due_date: Date;

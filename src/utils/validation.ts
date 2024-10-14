@@ -2,8 +2,9 @@
 import * as Yup from "yup";
 
 export const TaskSchema = Yup.object().shape({
+    id:Yup.number(),
     title: Yup.string().required("Title is required"),
-    description: Yup.string(),
+    description: Yup.string().nullable().optional(),
     assignee: Yup.string().required("Assignee is required"),
     priority: Yup.string()
       .oneOf(["Low", "Medium", "High"])

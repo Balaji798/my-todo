@@ -9,7 +9,7 @@ interface TaskItemProps {
   handleEditTask: (task: Task) => void; // Function type that accepts a Task
   setIsModalOpen: (isOpen: boolean) => void; // Function to set modal state
   setTitle: (title: string) => void; // Function to set the modal title
-  handleDeleteTask: (taskId: string) => void; // Change here to string
+  handleDeleteTask: (taskId: number) => void; // Change here to string
 }
 const TaskItem: React.FC<TaskItemProps> = ({
   item,
@@ -24,7 +24,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
       content: `Are you sure you want to delete the task "${item.title}"?`,
       onOk: () => {
         if (item.id !== undefined) {
-          handleDeleteTask(item.id.toString()); // Ensure item.id is a number
+          handleDeleteTask(item.id); // Ensure item.id is a number
         } else {
           console.error("Task ID is undefined");
         }

@@ -92,6 +92,7 @@ const Home = () => {
   };
 
   const handleEditTask = (task: Task) => {
+    setValue("id", task.id);
     setValue("title", task.title);
     setValue("description", task.description);
     setValue("assignee", task.assignee);
@@ -108,7 +109,6 @@ const Home = () => {
         <p>Loading tasks...</p>
       </div>
     );
-
   const handleFilterChange = (status: string) => {
     if (status === "") {
       setFilteredTasks(tasks); // Show all tasks
@@ -138,7 +138,7 @@ const Home = () => {
       </div>
     );
 
-    const handleDeleteTask = async (taskId: string) => {
+    const handleDeleteTask = async (taskId: number) => {
       const { error } = await supabase
         .from("tasks")
         .delete()
@@ -167,8 +167,9 @@ const Home = () => {
             fontSize: 20,
           }}
           onClick={() => {
-            setIsModalOpen(true);
-            setTitle("Add New Task");
+              reset(); // Clear the form fields for adding a new task
+              setIsModalOpen(true);
+              setTitle("Add New Task");
           }}
         >
           <IoIosAddCircleOutline /> Add New Task
